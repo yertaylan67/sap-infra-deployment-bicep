@@ -1,0 +1,79 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworkName_rg": {
+            "value": "<enter resource group of virtual network>"
+        },
+		"virtualNetworkName": {
+            "value": "<enter virtual network>"
+        },
+		"subnetName_app": {
+            "value": "<enter subnet for sap app server>"
+        },
+		"subnetName_db": {
+            "value": "<enter subnet for sap database server>"
+        },
+		"availabilityZoneName_app": {
+            "value": "<enter availability zone for sap app server>"
+        },
+		"availabilityZoneName_db": {
+            "value": "<enter availability zone for sap database server>"
+        },
+        "deployVirtualMachine_app": {
+            "value": true
+        },
+        "virtualMachineSize_app": {
+            "value": "Standard_E4ds_v5"
+        },
+        "virtualMachineName_app": {
+            "value": "<enter virtual machine name for sap app server>"
+        },
+        "imageReference_app": {
+            "value": {
+                "publisher": "suse",
+                "offer": "sles-sap-15-sp3",
+                "sku": "gen2",
+                "version": "latest"
+            }
+        },
+        "deployVirtualMachine_db": {
+            "value": true
+        },
+        "virtualMachineSize_db": {
+            "value": "Standard_E32ds_v4"
+        },
+        "virtualMachineName_db": {
+            "value": "<enter virtual machine name for sap database server>"
+        },
+        "imageReference_db": {
+            "value": {
+                "publisher": "suse",
+                "offer": "sles-sap-15-sp3",
+                "sku": "gen2",
+                "version": "latest"             
+            }
+        },
+        "diskEncryptionSetName_rg": {
+            "value": "<enter resource group of disk encryption set for SSE with CMK>"
+        },
+		"diskEncryptionSetName": {
+            "value": "<enter disk encryption set for SSE with CMK>"
+        },
+        "OSadminUserName": {
+            "value": "<enter VM administrator user>"
+        },
+        "HANASID": {
+            "value": "<enter SAP HANA SID>"
+        },
+        "HANAInstanceNumber": {
+            "value": "<enter SAP HANA instance number>"
+        },
+        "csExtension_app_script": {
+            "value": "sapapp_SID.sh"
+        },
+        "csExtension_db_script": {
+            "value": "sapdb_SID.sh"
+        }
+    }
+}
