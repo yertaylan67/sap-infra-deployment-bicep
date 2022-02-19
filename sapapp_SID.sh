@@ -19,7 +19,7 @@ zypper install -y saptune
 # only works when the OS image is PAYG and VM is successfully registered to SUSE Cloud Update Infrastructure
 echo $(date) INFO configure saptune >> ${log_file}
 saptune solution apply NETWEAVER
-saptune daemon start
+saptune service takeover
 
 # create SAP directories
 echo $(date) INFO create SAP directories >> ${log_file}
@@ -28,7 +28,7 @@ mkdir /sapmnt
 
 # create swap space via cloud-init per-boot script
 # 1597355 - Swap-space recommendation for Linux
-# SAP Application Server: swap file=64GB
+# SAP Application Server: swap file=64GiB
 echo $(date) INFO create swap space >> ${log_file}
 touch /var/lib/cloud/scripts/per-boot/create_swapfile.sh
 cat >> /var/lib/cloud/scripts/per-boot/create_swapfile.sh <<EOF

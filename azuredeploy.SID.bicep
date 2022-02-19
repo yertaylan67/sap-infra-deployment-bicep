@@ -1,3 +1,6 @@
+@description('Resource Group Location')
+param location string = resourceGroup().location
+
 @description('Virtual Network Resource Group')
 param virtualNetworkName_rg string
 
@@ -352,7 +355,7 @@ resource proximityPlacementGroup_resource 'Microsoft.Compute/proximityPlacementG
 /*
 resource proximityPlacementGroup_resource 'Microsoft.Compute/proximityPlacementGroups@2021-07-01' = {
   name: proximityPlacementGroupName
-  location: resourceGroup().location
+  location: location
   properties: {
     proximityPlacementGroupType: 'Standard'
   }
@@ -366,7 +369,7 @@ resource SAPMediaStore_resource 'Microsoft.Storage/storageAccounts@2021-04-01' e
 
 resource networkInterface_app_resource 'Microsoft.Network/networkInterfaces@2020-05-01' = if (deployVirtualMachine_app) {
   name: networkInterfaceName_app
-  location: resourceGroup().location
+  location: location
   properties: {
     ipConfigurations: [
       {
@@ -388,7 +391,7 @@ resource networkInterface_app_resource 'Microsoft.Network/networkInterfaces@2020
 
 resource networkInterface_db_resource 'Microsoft.Network/networkInterfaces@2020-05-01' = if (deployVirtualMachine_db) {
   name: networkInterfaceName_db
-  location: resourceGroup().location
+  location: location
   properties: {
     ipConfigurations: [
       {
@@ -410,7 +413,7 @@ resource networkInterface_db_resource 'Microsoft.Network/networkInterfaces@2020-
 
 resource disk_app_sap_resource 'Microsoft.Compute/disks@2021-04-01' = if (deployVirtualMachine_app) {
   name: diskConfig_app.sap.name
-  location: resourceGroup().location
+  location: location
   sku: {
     name: 'Premium_LRS'
   }
@@ -432,7 +435,7 @@ resource disk_app_sap_resource 'Microsoft.Compute/disks@2021-04-01' = if (deploy
 
 resource virtualMachine_app_resource 'Microsoft.Compute/virtualMachines@2019-07-01' = if (deployVirtualMachine_app) {
   name: virtualMachineName_app
-  location: resourceGroup().location
+  location: location
   properties: {
     /*
     proximityPlacementGroup: {
@@ -499,7 +502,7 @@ resource virtualMachine_app_resource 'Microsoft.Compute/virtualMachines@2019-07-
 
 resource virtualMachine_app_extension_resource 'Microsoft.Compute/virtualMachines/Extensions@2021-07-01' = if (deployVirtualMachine_app) {
   name: '${virtualMachine_app_resource.name}/${virtualMachineName_app}-sapapp-deployment'
-  location: resourceGroup().location
+  location: location
   properties: {
     publisher: 'Microsoft.Azure.Extensions'
     type: 'CustomScript'
@@ -520,7 +523,7 @@ resource virtualMachine_app_extension_resource 'Microsoft.Compute/virtualMachine
 
 resource virtualMachine_db_resource 'Microsoft.Compute/virtualMachines@2019-07-01' = if (deployVirtualMachine_db) {
   name: virtualMachineName_db
-  location: resourceGroup().location
+  location: location
   properties: {
     /*
     proximityPlacementGroup: {
@@ -577,7 +580,7 @@ resource virtualMachine_db_resource 'Microsoft.Compute/virtualMachines@2019-07-0
 
 resource virtualMachine_db_extension_resource 'Microsoft.Compute/virtualMachines/Extensions@2021-07-01' = if (deployVirtualMachine_db) {
   name: '${virtualMachine_db_resource.name}/${virtualMachineName_db}-sapdb-deployment'
-  location: resourceGroup().location
+  location: location
   properties: {
     publisher: 'Microsoft.Azure.Extensions'
     type: 'CustomScript'

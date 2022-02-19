@@ -38,7 +38,7 @@ zypper install -y saptune
 # only works when the OS image is PAYG and VM is successfully registered to SUSE Cloud Update Infrastructure
 echo $(date) INFO configure saptune >> ${log_file}
 saptune solution apply HANA
-saptune daemon start
+saptune service takeover
 
 # create SAP directories
 echo $(date) INFO create SAP directories >> ${log_file}
@@ -49,7 +49,7 @@ mkdir -p /hana/shared
 mkdir -p /hana/backup
 
 # create swap space via cloud-init per-boot script
-# SAP HANA Database Server: swap file=2GB
+# SAP HANA Database Server: swap file=2GiB
 echo $(date) INFO create swap space >> ${log_file}
 touch /var/lib/cloud/scripts/per-boot/create_swapfile.sh
 cat >> /var/lib/cloud/scripts/per-boot/create_swapfile.sh <<EOF
@@ -135,8 +135,8 @@ fi
 
 cd ${SAPBITSDIR}
 echo $(date) INFO download SAP HANA software media from storage account >> ${log_file}
-/usr/bin/wget -O SAPCAR --quiet ${SAPMediaStore_container}/HANA2.0_SPS05_REV59/SAPCAR${SAPMediaStore_sas}
-/usr/bin/wget -O IMDB_SERVER20_059_1-80002031.SAR --quiet ${SAPMediaStore_container}/HANA2.0_SPS05_REV59/IMDB_SERVER20_059_1-80002031.SAR${SAPMediaStore_sas}
+/usr/bin/wget -O SAPCAR --quiet ${SAPMediaStore_container}/HANA2.0_SPS05_REV59/SAPCAR?${SAPMediaStore_sas}
+/usr/bin/wget -O IMDB_SERVER20_059_1-80002031.SAR --quiet ${SAPMediaStore_container}/HANA2.0_SPS05_REV59/IMDB_SERVER20_059_1-80002031.SAR?${SAPMediaStore_sas}
 
 echo $(date) INFO extract SAP HANA software media >> ${log_file}
 chmod 755 ./SAPCAR
